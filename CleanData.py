@@ -57,7 +57,7 @@ def main():
                             else:
                                 csv_2018.write(str(row[x]) + ",")
         elif(split_data[2] == '2017'):
-            if(split_data[0] == '06' or split_data=='07'):
+            if(split_data[0] == '06' or split_data[0]=='07'):
                 if (not (np.isnan(row['LONGITUDE'] or np.isnan(row['LATITUDE'])))):
                     for x in range(0,29):
                         if(x==28):
