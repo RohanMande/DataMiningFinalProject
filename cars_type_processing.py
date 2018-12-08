@@ -255,3 +255,9 @@ ax.legend()
 
 fig.tight_layout()
 plt.show()
+
+pprint("2017 Total: " + str(len(t_data_2017)))
+pprint("2018 Total: " + str(len(t_data_2018)))
+
+pprint("2017 Average Vehicle / Accident :" + str(sum(data_2017[2].values()) / len(t_data_2017)))
+pprint("2018 Average Vehicle / Accident: " + str(sum(data_2018[2].values()) / len(t_data_2017)))
