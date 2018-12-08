@@ -165,6 +165,11 @@ def process_types(bike_data):
     return [vehicle_type_data, vehicle_type_totals, general_vehicle_type_totals]
 
 
+def autolabel(rects):
+    for rect in rects:
+        h = rect.get_height()
+        ax.text(rect.get_x()+rect.get_width()/2., 1.05*h, '%d'%int(h), ha='center', va='bottom', fontsize=4)
+
 data_2017 = process_types(t_data_2017)
 data_2018 = process_types(t_data_2018)
 
@@ -183,6 +188,9 @@ bars1 = ax.bar(index, data_2017[2].values(), bar_width,
 bars2 = ax.bar(index + bar_width, data_2018[2].values(), bar_width,
                 alpha=opacity, color='r',
                 label='2018')
+
+autolabel(bars1)
+autolabel(bars2)
 
 font = {'family': 'serif',
         'color':  'black',
@@ -239,7 +247,8 @@ bars1 = ax.bar(index, data_2017[1].values(), bar_width,
 bars2 = ax.bar(index + bar_width, data_2018[1].values(), bar_width,
                 alpha=opacity, color='r',
                 label='2018')
-
+autolabel(bars1)
+autolabel(bars2)
 font = {'family': 'serif',
         'color':  'black',
         'weight': 'normal',
