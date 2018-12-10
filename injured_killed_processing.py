@@ -5,13 +5,22 @@ from sklearn.cluster import KMeans
 from scipy.cluster.hierarchy import dendrogram, linkage
 from matplotlib import pyplot as plt
 import numpy as np
+
+
+# Get the data
 data2017 = pd.read_csv("Cleaned_2017.csv")
 data2018 = pd.read_csv("Cleaned_2018.csv")
+# Get the injury and death rows
 data_2017 = data2017[["NUMBER OF PERSONS INJURED","NUMBER OF PERSONS KILLED", "NUMBER OF PEDESTRIANS INJURED","NUMBER OF PEDESTRIANS KILLED","NUMBER OF CYCLIST INJURED","NUMBER OF CYCLIST KILLED","NUMBER OF MOTORIST INJURED","NUMBER OF MOTORIST KILLED"]]
 data_2018 = data2018[["NUMBER OF PERSONS INJURED","NUMBER OF PERSONS KILLED", "NUMBER OF PEDESTRIANS INJURED","NUMBER OF PEDESTRIANS KILLED","NUMBER OF CYCLIST INJURED","NUMBER OF CYCLIST KILLED","NUMBER OF MOTORIST INJURED","NUMBER OF MOTORIST KILLED"]]
 
 
 def process_data(data_set):
+    """
+    Process the injury and death data
+    :param data_set: The data set to process
+    :return: the processed data
+    """
     result1 = {
                  "NUMBER OF PERSONS INJURED": 0,
                  "NUMBER OF PERSONS KILLED": 0,
@@ -42,9 +51,21 @@ def process_data(data_set):
     return [result1, result2, result3]
 
 
+# Process the data
 graph_data_2017 = process_data(data_2017.values)
 graph_data_2018 = process_data(data_2018.values)
 
+def labelBars(rects):
+    """
+    Labels the bars on graphs with values
+    :param rects:
+    :return:
+    """
+    for rect in rects:
+        h = rect.get_height()
+        ax.text(rect.get_x()+rect.get_width()/2., 1.05*h, '%d'%int(h), ha='center', va='bottom', fontsize=12)
+
+# Graph number of injuries
 fig, ax = plt.subplots()
 
 index = np.arange(1)
@@ -58,6 +79,9 @@ bars1 = ax.bar(index, graph_data_2017[0]["NUMBER OF PERSONS INJURED"], bar_width
 
 bars2 = ax.bar(index + bar_width, graph_data_2018[0]["NUMBER OF PERSONS INJURED"], bar_width,
                alpha=opacity, color='r', label='2018')
+
+labelBars(bars1)
+labelBars(bars2)
 
 font = {'family': 'serif',
         'color':  'black',
@@ -75,6 +99,8 @@ ax.legend()
 fig.tight_layout()
 plt.show()
 #####################################################################
+# Graph number of deaths
+
 fig, ax = plt.subplots()
 
 index = np.arange(1)
@@ -88,7 +114,8 @@ bars1 = ax.bar(index, graph_data_2017[0]["NUMBER OF PERSONS KILLED"], bar_width,
 
 bars2 = ax.bar(index + bar_width, graph_data_2018[0]["NUMBER OF PERSONS KILLED"], bar_width,
                alpha=opacity, color='r', label='2018')
-
+labelBars(bars1)
+labelBars(bars2)
 font = {'family': 'serif',
         'color':  'black',
         'weight': 'normal',
@@ -106,6 +133,8 @@ fig.tight_layout()
 plt.show()
 
 #####################################################################
+# Graph number of specific death types
+
 fig, ax = plt.subplots()
 
 index = np.arange(len(graph_data_2018[1].keys()))
@@ -119,7 +148,8 @@ bars1 = ax.bar(index, graph_data_2017[1].values(), bar_width,
 
 bars2 = ax.bar(index + bar_width, graph_data_2018[1].values(), bar_width,
                alpha=opacity, color='r', label='2018')
-
+labelBars(bars1)
+labelBars(bars2)
 font = {'family': 'serif',
         'color':  'black',
         'weight': 'normal',
@@ -136,6 +166,8 @@ fig.tight_layout()
 plt.show()
 
 #####################################################################
+# Graph number of specific death types
+
 fig, ax = plt.subplots()
 
 index = np.arange(len(graph_data_2018[2].keys()))
@@ -149,7 +181,8 @@ bars1 = ax.bar(index, graph_data_2017[2].values(), bar_width,
 
 bars2 = ax.bar(index + bar_width, graph_data_2018[2].values(), bar_width,
                alpha=opacity, color='r', label='2018')
-
+labelBars(bars1)
+labelBars(bars2)
 font = {'family': 'serif',
         'color':  'black',
         'weight': 'normal',
